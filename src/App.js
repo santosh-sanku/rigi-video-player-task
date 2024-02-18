@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
+import VideoCard from "./components/card/VideoCard";
+import { videos } from "./data/data";
 
 function App() {
+  const [mockData, setMockData] = useState(videos);
+
+  const handleDelete = (id) => {
+    setMockData(mockData.filter((profile) => profile.id !== id));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="cards-container">
+      {mockData.map((profile) => (
+        <VideoCard key={profile.id} profile={profile} onDelete={handleDelete} />
+      ))}
     </div>
   );
 }
